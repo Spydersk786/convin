@@ -20,22 +20,28 @@ Follow these steps to set up the application on your local machine:
 
 ```bash
 git clone https://github.com/Spydersk786/convin
+
 cd convin
+
+```
 
 ### 2. Install the required Packages
 
 ```bash
 pip install flask validators
+```
 
 ### 3. Run the application
 
 ```bash
 python app.py
+```
 
 ### 4. Access the application
 
 ```browser
 http://localhost:5001
+```
 
 
 
