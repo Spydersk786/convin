@@ -50,12 +50,16 @@ def add_user():
         return jsonify({'error': 'Failed to add user'}), 500
 
 
-@app.route('/edit/<int:id>', methods=['POST'])
+@app.route('/edit/<int:id>', methods=['PUT'])
 def edit_user(id):
     user = users.get(id)
-    name = request.form['name']
-    email = request.form['email']
-    mobile = request.form['mobile']
+    if not user:
+        return jsonify({'error': 'User does not exist'}), 404
+
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    mobile = data.get('mobile')
     errors = {}
     if not name:
         errors['name'] = 'Name is required'
@@ -76,10 +80,11 @@ def edit_user(id):
     return jsonify(user)
 
 
-@app.route('/delete/<int:id>')
+@app.route('/delete/<int:id>', methods=['DELETE'])
 def delete_user(id):
     if id in users:
         del users[id]
+        return jsonify({'message': 'User deleted successfully'}), 200
     else:
         return jsonify({'errors': 'User does not exist'}), 400
 
